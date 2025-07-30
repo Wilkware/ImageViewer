@@ -42,19 +42,25 @@ __Konfigurationsseite__:
 
 _Einstellungsbereich:_
 
-> Bild ...
+```
+📸 Bild ...
+```
 
 Name                              | Beschreibung
 --------------------------------- | -------------------------------------------
 URL der Bild-Ressource            | Quell-URL des darzustellenden Bildes/MJPG
 
-> Design ...
+```
+✨ Design ...
+```
 
 Name                              | Beschreibung
 --------------------------------- | -------------------------------------------
 Hintergrundfarbe                  | Hintergrundfarbe der Kachel
 
-> Erweiterte Einstellungen  ...
+```
+⚙️ Erweiterte Einstellungen  ...
+```
 
 Name                              | Beschreibung
 --------------------------------- | -------------------------------------------
