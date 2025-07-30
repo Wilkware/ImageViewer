@@ -1,4 +1,4 @@
-# 📸 Image Viewer Tile (Bildbetrachter Kachel)
+# 📸 Image Viewer Tile / Bildbetrachter Kachel
 
 [![Version](https://img.shields.io/badge/Symcon-PHP--Modul-red.svg?style=flat-square)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
 [![Product](https://img.shields.io/badge/Symcon%20Version-7.2-blue.svg?style=flat-square)](https://www.symcon.de/produkt/)
@@ -35,7 +35,7 @@ Durch Nutzung des HTML-SDKs kann dieser Bildbetrachter Inhalte nun kachelfüllen
 
 ### 4. Einrichten der Instanzen in IP-Symcon
 
-* Unter "Instanz hinzufügen" ist das _'Image Viewer'_-Modul unter dem Hersteller _'Geräte'_ aufgeführt.
+* Unter "Instanz hinzufügen" ist das _'Bildbetrachter'_-Modul unter dem Hersteller _'Geräte'_ aufgeführt.
 Weitere Informationen zum Hinzufügen von Instanzen in der [Dokumentation der Instanzen](https://www.symcon.de/service/dokumentation/konzepte/instanzen/#Instanz_hinzufügen)
 
 __Konfigurationsseite__:
