@@ -29,7 +29,7 @@ Durch Nutzung des HTML-SDKs kann dieser Bildbetrachter Inhalte nun kachelfüllen
 
 ### 3. Installation
 
-* Über den Module Store das 'ImageViewer'-Modul installieren.
+* Über den Module Store das 'Bildbetrachter'-Modul installieren.
 * Alternativ über das Module Control folgende URL hinzufügen  
 `https://github.com/Wilkware/ImageViewer` oder `git://github.com/Wilkware/ImageViewer.git`
 
