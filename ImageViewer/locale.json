@@ -1,0 +1,16 @@
+{
+    "translations": {
+        "de": {
+            "Image Viewer": "Bildbetrachter",
+            "With this module, you can display single images and motion JPEG streams directly in a full-size tile.": "Mit diesem Modul können Sie Einzelbilder und Motion-JPEG-Streams direkt in einer vollflächigen Kachel anzeigen.",
+            "📸 Image ...": "📸 Bild ...",
+            "URL of the image resource:": "URL der Bild-Ressource:",
+            "Background color:": "Hintergrundfarbe:",
+            "⚙️ Advanced settings ...": "⚙️Erweiterte Einstellungen ...",
+            "Allow dynamic changes to the image URL!": "Dynamische Änderung der Bild-URL zulassen!",
+            "Development and debug information ...": "Entwicklungs- und Debuginformationen ...",
+            "🎗️ Source code, donation and licence ...": "🎗️ Quellcode, Spende und Lizenz ...",
+            "The software is free of charge for non-commercial use, I would appreciate a donation if you like the module.": "Die Software ist für die nicht kommerzielle Nutzung kostenlos, über eine Spende bei Gefallen des Moduls würde ich mich sehr freuen."
+        }
+    }
+}

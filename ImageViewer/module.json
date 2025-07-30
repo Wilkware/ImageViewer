@@ -1,0 +1,12 @@
+{
+    "id": "{2FD3A3C0-2C41-AF46-7A1B-F9C120593858}",
+    "name": "Image Viewer",
+    "url": "https://wilkware.de/ip-symcon-module/cards/",
+    "type": 3,
+    "vendor": "",
+    "aliases": [],
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "CCIV"
+}

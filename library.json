@@ -1,0 +1,12 @@
+{
+    "id": "{74D41BC6-D08C-21F6-E222-90E388A66F84}",
+    "name": "Image Viewer Tile",
+    "author": "Wilkware (@Pitti)",
+    "url": "https://wilkware.de",
+    "compatibility": {
+        "version": "7.2"
+    },
+    "version": "1.0",
+    "build": 20250729,
+    "date": 1753790400
+}

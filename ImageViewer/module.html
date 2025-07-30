@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        #viewer {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div id="card">
+        <img id="viewer" />
+    </div>
+<script>
+    const viewer = document.getElementById("viewer");
+
+    // This is where the data is processed by the module.
+    function handleMessage(data) {
+        const decodedData = JSON.parse(data);
+        // source
+        viewer.src = decodedData.source || "";
+
+
+        // background color
+        if (decodedData.color) {
+            viewer.style.backgroundColor = decodedData.color;
+        } else {
+            viewer.style.backgroundColor = ""; // default
+        }    
+    }
+</script>
+</body>
+</html>
