@@ -1,1 +1,1 @@
-{"version":1,"defects":[],"times":{"ValidationTest::testNop":0.001,"ValidationTest::testValidateLibrary":0.003,"ValidationTest::testValidateModule":0.009}}
+{"version":1,"defects":[],"times":{"ValidationTest::testNop":0.001,"ValidationTest::testValidateLibrary":0.004,"ValidationTest::testValidateModule":0.019}}
