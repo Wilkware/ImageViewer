@@ -1,8 +1,8 @@
 # 📸 Bildbetrachter Kachel (Image Viewer Tile)
 
 [![Version](https://img.shields.io/badge/Symcon-PHP--Modul-red.svg?style=flat-square)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
-[![Product](https://img.shields.io/badge/Symcon%20Version-7.2-blue.svg?style=flat-square)](https://www.symcon.de/produkt/)
-[![Version](https://img.shields.io/badge/Modul%20Version-1.0.20250729-orange.svg?style=flat-square)](https://github.com/Wilkware/ImageViewer)
+[![Product](https://img.shields.io/badge/Symcon%20Version-8.1-blue.svg?style=flat-square)](https://www.symcon.de/produkt/)
+[![Version](https://img.shields.io/badge/Modul%20Version-1.1.20250915-orange.svg?style=flat-square)](https://github.com/Wilkware/ImageViewer)
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-green.svg?style=flat-square)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![Actions](https://img.shields.io/github/actions/workflow/status/wilkware/ImageViewer/ci.yml?branch=main&label=CI&style=flat-square)](https://github.com/Wilkware/ImageViewer/actions)
 
@@ -25,7 +25,7 @@ Durch Nutzung des HTML-SDKs kann dieser Bildbetrachter Inhalte nun kachelfüllen
 
 ### 2. Voraussetzungen
 
-* IP-Symcon ab Version 7.2
+* IP-Symcon ab Version 8.1
 
 ### 3. Installation
 
@@ -84,6 +84,11 @@ IPS_RequestAction(12345, 'SetImageUrl', 'https://wilkware.de/wp-content/uploads/
 ```
 
 ### 8. Versionshistorie
+
+v1.1.20250915
+
+* _NEU_: Projektumstrukturierung hin zu einer globalen CI/CD-Pipeline
+* _NEU_: Kompatibilität auf IPS 8.1 hoch gesetzt
 
 v1.0.20250729
 
