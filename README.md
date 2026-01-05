@@ -2,7 +2,7 @@
 
 [![Version](https://img.shields.io/badge/Symcon-PHP--Modul-red.svg?style=flat-square)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
 [![Product](https://img.shields.io/badge/Symcon%20Version-8.1-blue.svg?style=flat-square)](https://www.symcon.de/produkt/)
-[![Version](https://img.shields.io/badge/Modul%20Version-1.1.20250915-orange.svg?style=flat-square)](https://github.com/Wilkware/ImageViewer)
+[![Version](https://img.shields.io/badge/Modul%20Version-1.2.20260105-orange.svg?style=flat-square)](https://github.com/Wilkware/ImageViewer)
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-green.svg?style=flat-square)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![Actions](https://img.shields.io/github/actions/workflow/status/wilkware/ImageViewer/ci.yml?branch=main&label=CI&style=flat-square)](https://github.com/Wilkware/ImageViewer/actions)
 
@@ -59,6 +59,9 @@ Hintergrundfarbe                  | Hintergrundfarbe der Kachel
 Name                              | Beschreibung
 --------------------------------- | -------------------------------------------
 Dynamische Änderung der Bild-URL zulassen! | Erlaubt das dynamiche Austauschen der URL-Konfiguration (IPS_SetProperty/IPS_ApplyChanges).
+Anzeigen eines Buttons zum Erstellen eines neuen Snapshots! | Rechts unten wird ein Button (overlay) auf dem Bild angezeigt zum Erstellen eines neuen Bildes (Skript oder Variablenaktion).
+Skript                            | Script, welches den Snapshot erzeugt
+Variable                          | Variable, dessen Action den Snapshot auslöst
 
 ### 5. Statusvariablen und Profile
 
@@ -84,6 +87,11 @@ IPS_RequestAction(12345, 'SetImageUrl', 'https://wilkware.de/wp-content/uploads/
 ```
 
 ### 8. Versionshistorie
+
+v1.2.20260105
+
+* _NEU_: Schalter(Overlay) für Auslöser/Snapshot hinzugefügt
+* _NEU_: Umstellung auf IPSModuleStrict
 
 v1.1.20250915
 

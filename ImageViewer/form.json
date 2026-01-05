@@ -44,7 +44,8 @@
                 {
                     "type": "SelectColor",
                     "caption": "Background color:",
-                    "name": "BackgroundColor"
+                    "name": "BackgroundColor",
+                    "width": "350px"
                 }
             ]
         },
@@ -56,6 +57,36 @@
                     "type": "CheckBox",
                     "name": "AllowUpdate",
                     "caption": "Allow dynamic changes to the image URL!"
+                },
+                {
+                    "type": "CheckBox",
+                    "name": "AllowSnapshot",
+                    "caption": "Displaying a button to create a new snapshot!"
+                },
+                {
+                    "type": "RowLayout",
+                    "items": [
+                        {
+                            "type": "Label",
+                            "caption": " ",
+                            "width": "40px"
+                        },
+                        {
+                            "type": "SelectScript",
+                            "name": "SnapshotScript",
+                            "caption": "Script:",
+                            "width": "298px"
+                        },
+                        {
+                            "type": "SelectVariable",
+                            "name": "SnapshotVariable",
+                            "caption": "Variable:",
+                            "validVariableTypes": [
+                                0
+                            ],
+                            "width": "298px"
+                        }
+                    ]
                 }
             ]
         }
@@ -103,6 +134,10 @@
                             "onClick": "echo 'https://creativecommons.org/licenses/by-nc-sa/4.0/';"
                         }
                     ]
+                },
+                {
+                    "type": "Label",
+                    "color": 8421504
                 }
             ]
         }

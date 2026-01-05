@@ -23,28 +23,83 @@
             height: 100%;
             object-fit: cover;
         }
+        #actions {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            display: flex;
+            overflow: hidden;
+            border-radius: 25px;
+            background: color-mix(in srgb, var(--accent-color) 50%, transparent);
+            z-index: 10;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+        #actions .half {
+            padding: 8px 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        #actions .half:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        #actions svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--content-color);
+        }
     </style>
+    <script src="/icons.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="card">
         <img id="viewer" />
+        <div id="actions">
+            <!-- Snapshot Button -->
+            <div id="snapshot" class="half" onclick="requestAction('Snapshot',true)">
+                <!-- Kamera-Icon -->
+                <i class="fa-light fa-camera" title="Snapshot"></i>
+            </div>
+        </div>
+
     </div>
 <script>
     const viewer = document.getElementById("viewer");
+    let snapShot = false;
 
     // This is where the data is processed by the module.
     function handleMessage(data) {
         const decodedData = JSON.parse(data);
-        // source
-        viewer.src = decodedData.source || "";
+        // source mit Cache-Busting
+        if (decodedData.source) {
+            let baseSrc = decodedData.source.split("?")[0]; // Base-URL without query
+            let query = decodedData.source.split("?")[1] || ""; // existing query
 
-
+            if (decodedData.snapshot) {
+                // prüfen, ob schon ein Query-String existiert
+                let sep = query ? "&" : "?";
+                viewer.src = baseSrc + (query ? "?" + query : "") + sep + "cciv=" + Date.now();
+            } else {
+                viewer.src = decodedData.source; // normal loading
+            }
+        } else {
+            viewer.src = "";
+        }
         // background color
         if (decodedData.color) {
             viewer.style.backgroundColor = decodedData.color;
         } else {
             viewer.style.backgroundColor = ""; // default
-        }    
+        }
+        // snapshot action
+        snapShot = !!decodedData.snapshot;
+        // Snapshot-Button aktivieren/deaktivieren
+        actions.style.opacity = snapShot ? 1 : 0;
+        snapshot.style.pointerEvents = snapShot ? 'auto' : 'none';
     }
 </script>
 </body>

@@ -2,10 +2,13 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../libs/_traits.php';  // Generell funktions
+// General functions
+require_once __DIR__ . '/../libs/_traits.php';
 
-// CLASS ImageViewer
-class ImageViewer extends IPSModule
+/**
+ * CLASS ImageViewer
+ */
+class ImageViewer extends IPSModuleStrict
 {
     use DebugHelper;
 
@@ -13,7 +16,10 @@ class ImageViewer extends IPSModule
     // private const IPS_MIN_ID = 10000;
 
     /**
-     * Create.
+     * In contrast to Construct, this function is called only once when creating the instance and starting IP-Symcon.
+     * Therefore, status variables and module properties which the module requires permanently should be created here.
+     *
+     * @return void
      */
     public function Create(): void
     {
@@ -28,6 +34,9 @@ class ImageViewer extends IPSModule
 
         // Advanced Settings
         $this->RegisterPropertyBoolean('AllowUpdate', false);
+        $this->RegisterPropertyBoolean('AllowSnapshot', false);
+        $this->RegisterPropertyInteger('SnapshotScript', 1);
+        $this->RegisterPropertyInteger('SnapshotVariable', 1);
 
         // Set visualization type to 1, as we want to offer HTML
         /** @phpstan-ignore-next-line */
@@ -35,29 +44,32 @@ class ImageViewer extends IPSModule
     }
 
     /**
-     * Destroy.
-     */
-    public function Destroy(): void
-    {
-        parent::Destroy();
-    }
-
-    /**
-     * Configuration Form.
+     * The content can be overwritten in order to transfer a self-created configuration page.
+     * This way, content can be generated dynamically.
+     * In this case, the "form.json" on the file system is completely ignored.
      *
-     * @return string configuration string.
+     * @return string Content of the configuration page.
      */
     public function GetConfigurationForm(): string
     {
         // Get Form
         $form = json_decode(file_get_contents(__DIR__ . '/form.json'), true);
+
+        // Extract Version
+        $ins = IPS_GetInstance($this->InstanceID);
+        $mod = IPS_GetModule($ins['ModuleInfo']['ModuleID']);
+        $lib = IPS_GetLibrary($mod['LibraryID']);
+        $form['actions'][1]['items'][2]['caption'] = sprintf('v%s.%d', $lib['Version'], $lib['Build']);
+
         // Debug output
         //$this->LogDebug(__FUNCTION__, $form);
         return json_encode($form);
     }
 
     /**
-     * Apply Configuration Changes.
+     * Is executed when "Apply" is pressed on the configuration page and immediately after the instance has been created.
+     *
+     * @return void
      */
     public function ApplyChanges(): void
     {
@@ -72,12 +84,13 @@ class ImageViewer extends IPSModule
     }
 
     /**
-     * RequestAction.
+     * Is called when, for example, a button is clicked in the visualization.
      *
-     *  @param string $ident Ident.
-     *  @param string $value Value.
+     * @param string $ident Ident of the variable
+     * @param mixed $value The value to be set
+     * @return void
      */
-    public function RequestAction($ident, $value): bool
+    public function RequestAction(string $ident, mixed $value): void
     {
         // Debug output
         $this->LogDebug(__FUNCTION__, $ident . ' => ' . $value);
@@ -93,11 +106,28 @@ class ImageViewer extends IPSModule
                     }
                 }
                 break;
+            case 'Snapshot':
+                if ($this->ReadPropertyBoolean('AllowSnapshot')) {
+                    $script = $this->ReadPropertyInteger('SnapshotScript');
+                    if (IPS_ScriptExists($script)) {
+                        IPS_RunScriptWait($script);
+                    }
+                    $variable = $this->ReadPropertyInteger('SnapshotVariable');
+                    if (IPS_VariableExists($variable)) {
+                        if (HasAction($variable)) {
+                            RequestAction($variable, $value);
+                            IPS_Sleep(500);
+                            $this->LogDebug(__FUNCTION__, 'RequestAction(' . $variable . ', ' . $value . ')');
+                        }
+                        else {
+                            $this->LogDebug(__FUNCTION__, 'No action for variable: ' . $variable);
+                        }
+                    }
+                }
+                break;
         }
         // Send a complete update message to the display, as parameters may have changed
         $this->UpdateVisualizationValue($this->GetFullUpdateMessage());
-        // Always true
-        return true;
     }
 
     /**
@@ -128,7 +158,8 @@ class ImageViewer extends IPSModule
         // dataset variable
         $result = [
             'color'     => $this->GetColorFormatted($this->ReadPropertyInteger('BackgroundColor')),
-            'source'    => $this->ReadPropertyString('ImageURL')
+            'source'    => $this->ReadPropertyString('ImageURL'),
+            'snapshot'  => $this->ReadPropertyBoolean('AllowSnapshot'),
         ];
         $this->LogDebug(__FUNCTION__, $result);
         return json_encode($result);
