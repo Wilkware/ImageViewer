@@ -187,7 +187,7 @@ class ImageViewer extends IPSModuleStrict
         // dataset variable
         $result = [
             'color'     => $this->GetColorFormatted($this->ReadPropertyInteger('BackgroundColor')),
-            'fit'       => $this->ReadPropertyString('ImageFit'), 
+            'fit'       => $this->ReadPropertyString('ImageFit'),
             'source'    => $this->ReadPropertyString('ImageURL'),
             'snapshot'  => $this->ReadPropertyBoolean('AllowSnapshot'),
         ];
