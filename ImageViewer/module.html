@@ -1,8 +1,14 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="de">
+
 <head>
-    <meta charset="UTF-8" />
+    <title>ClimateControl</title>
+    <meta charset="utf-8" />
     <style>
+        :root {
+            --object-fit: cover;
+        }
+
         html,
         body {
             margin: 0;
@@ -21,8 +27,9 @@
         #viewer {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: var(--object-fit);
         }
+
         #actions {
             position: absolute;
             bottom: 16px;
@@ -34,6 +41,7 @@
             z-index: 10;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
         }
+
         #actions .half {
             padding: 8px 12px;
             cursor: pointer;
@@ -55,6 +63,7 @@
     </style>
     <script src="/icons.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
     <div id="card">
         <img id="viewer" />
@@ -67,40 +76,45 @@
         </div>
 
     </div>
-<script>
-    const viewer = document.getElementById("viewer");
-    let snapShot = false;
+    <script>
+        const viewer = document.getElementById("viewer");
+        let snapShot = false;
 
-    // This is where the data is processed by the module.
-    function handleMessage(data) {
-        const decodedData = JSON.parse(data);
-        // source mit Cache-Busting
-        if (decodedData.source) {
-            let baseSrc = decodedData.source.split("?")[0]; // Base-URL without query
-            let query = decodedData.source.split("?")[1] || ""; // existing query
+        // This is where the data is processed by the module.
+        function handleMessage(data) {
+            const decodedData = JSON.parse(data);
+            // source mit Cache-Busting
+            if (decodedData.source) {
+                let baseSrc = decodedData.source.split("?")[0]; // Base-URL without query
+                let query = decodedData.source.split("?")[1] || ""; // existing query
 
-            if (decodedData.snapshot) {
-                // prüfen, ob schon ein Query-String existiert
-                let sep = query ? "&" : "?";
-                viewer.src = baseSrc + (query ? "?" + query : "") + sep + "cciv=" + Date.now();
+                if (decodedData.snapshot) {
+                    // prüfen, ob schon ein Query-String existiert
+                    let sep = query ? "&" : "?";
+                    viewer.src = baseSrc + (query ? "?" + query : "") + sep + "cciv=" + Date.now();
+                } else {
+                    viewer.src = decodedData.source; // normal loading
+                }
             } else {
-                viewer.src = decodedData.source; // normal loading
+                viewer.src = "";
             }
-        } else {
-            viewer.src = "";
+            // background color
+            if (decodedData.color) {
+                viewer.style.backgroundColor = decodedData.color;
+            } else {
+                viewer.style.backgroundColor = ""; // default
+            }
+            // object fit
+            if (decodedData.fit) {
+                document.documentElement.style.setProperty('--object-fit', decodedData.fit);
+            }
+            // snapshot action
+            snapShot = !!decodedData.snapshot;
+            // Snapshot-Button aktivieren/deaktivieren
+            actions.style.opacity = snapShot ? 1 : 0;
+            snapshot.style.pointerEvents = snapShot ? 'auto' : 'none';
         }
-        // background color
-        if (decodedData.color) {
-            viewer.style.backgroundColor = decodedData.color;
-        } else {
-            viewer.style.backgroundColor = ""; // default
-        }
-        // snapshot action
-        snapShot = !!decodedData.snapshot;
-        // Snapshot-Button aktivieren/deaktivieren
-        actions.style.opacity = snapShot ? 1 : 0;
-        snapshot.style.pointerEvents = snapShot ? 'auto' : 'none';
-    }
-</script>
+    </script>
 </body>
+
 </html>

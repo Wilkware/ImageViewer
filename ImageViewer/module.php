@@ -2,18 +2,27 @@
 
 declare(strict_types=1);
 
-// General functions
+/** General functions  */
 require_once __DIR__ . '/../libs/_traits.php';
 
 /**
- * CLASS ImageViewer
+ * Class ImageViewer
  */
 class ImageViewer extends IPSModuleStrict
 {
+    // -------------------------------------------------------------------------
+    // Traits
+    // -------------------------------------------------------------------------
+
     use DebugHelper;
+    use FormatHelper;
 
     // Min IPS Object ID
     // private const IPS_MIN_ID = 10000;
+
+    // -------------------------------------------------------------------------
+    // Methods
+    // -------------------------------------------------------------------------
 
     /**
      * In contrast to Construct, this function is called only once when creating the instance and starting IP-Symcon.
@@ -31,6 +40,7 @@ class ImageViewer extends IPSModuleStrict
 
         // Design
         $this->RegisterPropertyInteger('BackgroundColor', -1);
+        $this->RegisterPropertyString('ImageFit', 'cover');
 
         // Advanced Settings
         $this->RegisterPropertyBoolean('AllowUpdate', false);
@@ -39,8 +49,18 @@ class ImageViewer extends IPSModuleStrict
         $this->RegisterPropertyInteger('SnapshotVariable', 1);
 
         // Set visualization type to 1, as we want to offer HTML
-        /** @phpstan-ignore-next-line */
         $this->SetVisualizationType(1);
+    }
+
+    /**
+     * This function is called when deleting the instance during operation and when updating via "Module Control".
+     * The function is not called when exiting IP-Symcon.
+     *
+     * @return void
+     */
+    public function Destroy(): void
+    {
+        parent::Destroy();
     }
 
     /**
@@ -88,6 +108,7 @@ class ImageViewer extends IPSModuleStrict
      *
      * @param string $ident Ident of the variable
      * @param mixed $value The value to be set
+     *
      * @return void
      */
     public function RequestAction(string $ident, mixed $value): void
@@ -97,14 +118,7 @@ class ImageViewer extends IPSModuleStrict
         // Ident == OnXxxxxYyyyy
         switch ($ident) {
             case 'SetImageUrl':
-                if (!empty($value)) {
-                    if ($this->ReadPropertyBoolean('AllowUpdate')) {
-                        IPS_SetProperty($this->InstanceID, 'ImageURL', $value);
-                        if (IPS_HasChanges($this->InstanceID)) {
-                            IPS_ApplyChanges($this->InstanceID);
-                        }
-                    }
-                }
+                $this->SetImageUrl($value);
                 break;
             case 'Snapshot':
                 if ($this->ReadPropertyBoolean('AllowSnapshot')) {
@@ -148,6 +162,21 @@ class ImageViewer extends IPSModuleStrict
         return $module . $initialHandling;
     }
 
+    public function SetImageUrl(string $source): string
+    {
+        $url = '';
+        if (!empty($source)) {
+            if ($this->ReadPropertyBoolean('AllowUpdate')) {
+                $url = $this->ReadPropertyString('ImageURL');
+                IPS_SetProperty($this->InstanceID, 'ImageURL', $source);
+                if (IPS_HasChanges($this->InstanceID)) {
+                    IPS_ApplyChanges($this->InstanceID);
+                }
+            }
+        }
+        return $url;
+    }
+
     /**
      * Generate a message that updates all elements in the HTML display.
      *
@@ -158,25 +187,11 @@ class ImageViewer extends IPSModuleStrict
         // dataset variable
         $result = [
             'color'     => $this->GetColorFormatted($this->ReadPropertyInteger('BackgroundColor')),
+            'fit'       => $this->ReadPropertyString('ImageFit'), 
             'source'    => $this->ReadPropertyString('ImageURL'),
             'snapshot'  => $this->ReadPropertyBoolean('AllowSnapshot'),
         ];
         $this->LogDebug(__FUNCTION__, $result);
         return json_encode($result);
-    }
-
-    /**
-     * Get HTML rgb formated color.
-     *
-     * @param int $color Color value or -1 for transparency
-     * @return string HTML coded color or empty string
-     */
-    private function GetColorFormatted(int $color): string
-    {
-        if ($color != '-1') {
-            return '#' . sprintf('%06X', $color);
-        } else {
-            return '';
-        }
     }
 }

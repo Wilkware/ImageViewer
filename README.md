@@ -2,11 +2,13 @@
 
 [![Version](https://img.shields.io/badge/Symcon-PHP--Modul-red.svg?style=flat-square)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
 [![Product](https://img.shields.io/badge/Symcon%20Version-8.1-blue.svg?style=flat-square)](https://www.symcon.de/produkt/)
-[![Version](https://img.shields.io/badge/Modul%20Version-1.2.20260105-orange.svg?style=flat-square)](https://github.com/Wilkware/ImageViewer)
+[![Version](https://img.shields.io/badge/Modul%20Version-2.0.20260713-orange.svg?style=flat-square)](https://github.com/Wilkware/ImageViewer)
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-green.svg?style=flat-square)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![Actions](https://img.shields.io/github/actions/workflow/status/wilkware/ImageViewer/ci.yml?branch=main&label=CI&style=flat-square)](https://github.com/Wilkware/ImageViewer/actions)
 
 Mit diesem Modul können Sie Einzelbilder und Motion-JPEG-Streams direkt in einer vollflächigen Kachel anzeigen.
+
+![Module-Visu](imgs/image-viewer.png)
 
 ## Inhaltverzeichnis
 
@@ -14,14 +16,15 @@ Mit diesem Modul können Sie Einzelbilder und Motion-JPEG-Streams direkt in eine
 2. [Voraussetzungen](#user-content-2-voraussetzungen)
 3. [Installation](#user-content-3-installation)
 4. [Einrichten der Instanzen in IP-Symcon](#user-content-4-einrichten-der-instanzen-in-ip-symcon)
-5. [Statusvariablen und Profile](#user-content-5-statusvariablen-und-profile)
+5. [Statusvariablen und Darstellungen](#user-content-5-statusvariablen-und-darstellungen)
 6. [Visualisierung](#user-content-6-visualisierung)
 7. [PHP-Befehlsreferenz](#user-content-7-php-befehlsreferenz)
 8. [Versionshistorie](#user-content-8-versionshistorie)
 
 ### 1. Funktionsumfang
 
-Durch Nutzung des HTML-SDKs kann dieser Bildbetrachter Inhalte nun kachelfüllend darstellen – was mit der klassischen HTMLBox bisher nicht möglich war. Unterstützt werden sowohl MJPEG-Streams (z. B. von IP-Kameras) als auch statische Bildquellen.
+Durch Nutzung des HTML-SDKs kann dieser Bildbetrachter Inhalte nun kachelfüllend darstellen – was mit der klassischen HTMLBox bisher nicht möglich war. Unterstützt werden sowohl MJPEG-Streams (z. B. von IP-Kameras) als auch statische Bildquellen.  
+Darüber hinaus kann festgelegt werden, wie der Bildinhalt relativ zur Kachelgröße skaliert und angepasst werden soll.
 
 ### 2. Voraussetzungen
 
@@ -48,11 +51,12 @@ Name                              | Beschreibung
 --------------------------------- | -------------------------------------------
 URL der Bild-Ressource            | Quell-URL des darzustellenden Bildes/MJPG
 
-> ✨ Design ...
+> ✨ Visualisation ...
 
 Name                              | Beschreibung
 --------------------------------- | -------------------------------------------
 Hintergrundfarbe                  | Hintergrundfarbe der Kachel
+Bildanpassung                     | Ausfüllen (cover), Einpassen (contain) oder Strecken (fill)
 
 > ⚙️ Erweiterte Einstellungen  ...
 
@@ -63,9 +67,9 @@ Anzeigen eines Buttons zum Erstellen eines neuen Snapshots! | Rechts unten wird 
 Skript                            | Script, welches den Snapshot erzeugt
 Variable                          | Variable, dessen Action den Snapshot auslöst
 
-### 5. Statusvariablen und Profile
+### 5. Statusvariablen und Darstellungen
 
-Es werden keine zusätzlichen Statusvariablen/Profile benötigt.
+Es werden keine zusätzlichen Statusvariablen und Darstellungen/Profile benötigt.
 
 ### 6. Visualisierung
 
@@ -74,19 +78,28 @@ Als Kachel wird ein vollflächiges Bild bzw. Motion-Stream dargestellt.
 
 ### 7. PHP-Befehlsreferenz
 
-Das Modul stellt keine direkten Funktionsaufrufe zur Verfügung.  
-Über IPS_RequestAction mit dem Identifier "SetImageUrl" und der URL als Wert, kann dem Viewer mitgeteilt werden das Bild zu wechseln!
-
 ```php
-IPS_RequestAction(int $InstanzID, 'SetImageUrl', '<neue bild url>');
+WWXIV_SetImageUrl(int $InstanzID, string $source);
 ```
+
+Wenn die dynamische Änderung der Image-Url aktiviert wurde, dann kann über 
+diese Funktion eine neue Url für das anzuzeigende Bild hinterlegt wedern.
+Im Erfolgsfall wird die Url der bis dahin angezeigten Bildes zurückggeben.
 
 __Beispiel__:
 ```php
-IPS_RequestAction(12345, 'SetImageUrl', 'https://wilkware.de/wp-content/uploads/2025/02/sommer-smart-home.jpeg');
+WWXIV_SetImageUrl(12345, 'https://wilkware.de/wp-content/uploads/2025/02/sommer-smart-home.jpeg');
 ```
 
 ### 8. Versionshistorie
+
+v2.0.20260713
+
+* _NEU_: Bildanpassung (cover, contain und fill) eingeführt
+* _NEU_: Umstellung auf öffentlichen Befehl für das Setzen einer Bild-Url
+* _FIX_: Modulpräfix vereinheitlicht auf WWXIV_
+* _FIX_: Interne Bibliotheken und Konfiguration überarbeitet und vereinheitlicht
+* _FIX_: Fehlende Übersetzungen nachgezogen
 
 v1.2.20260105
 

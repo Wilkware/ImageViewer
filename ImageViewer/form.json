@@ -39,13 +39,32 @@
         },
         {
             "type": "ExpansionPanel",
-            "caption": "✨ Design ...",
+            "caption": "✨ Visualisation ...",
             "items": [
                 {
                     "type": "SelectColor",
                     "caption": "Background color:",
                     "name": "BackgroundColor",
                     "width": "350px"
+                },
+                {
+                    "type": "Select",
+                    "caption": "Image fit:",
+                    "name": "ImageFit",
+                    "options": [
+                        {
+                            "caption": "Cover",
+                            "value": "cover"
+                        },
+                        {
+                            "caption": "Contain",
+                            "value": "contain"
+                        },
+                        {
+                            "caption": "Fill",
+                            "value": "fill"
+                        }
+                    ]
                 }
             ]
         },
