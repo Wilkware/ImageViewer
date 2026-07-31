@@ -5,6 +5,10 @@ declare(strict_types=1);
 /** General functions  */
 require_once __DIR__ . '/../libs/_traits.php';
 
+/** Namespaced traits */
+use Wilkware\ImageViewer\DebugHelper;
+use Wilkware\ImageViewer\FormatHelper;
+
 /**
  * Class ImageViewer
  */
