@@ -1,5 +1,6 @@
 # 📸 Bildbetrachter (Image Viewer)
 
+[![Home](https://img.shields.io/badge/Home-wilkware.de-0b1830.svg?style=flat-square)](https://wilkware.de/module/bildbetrachter/)
 [![Version](https://img.shields.io/badge/Symcon-PHP--Modul-red.svg?style=flat-square)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
 [![Product](https://img.shields.io/badge/Symcon%20Version-8.1-blue.svg?style=flat-square)](https://www.symcon.de/produkt/)
 [![Version](https://img.shields.io/badge/Modul%20Version-2.0.20260713-orange.svg?style=flat-square)](https://github.com/Wilkware/ImageViewer)
@@ -15,11 +16,12 @@ Mit diesem Modul können Sie Einzelbilder und Motion-JPEG-Streams direkt in eine
 1. [Funktionsumfang](#user-content-1-funktionsumfang)
 2. [Voraussetzungen](#user-content-2-voraussetzungen)
 3. [Installation](#user-content-3-installation)
-4. [Einrichten der Instanzen in IP-Symcon](#user-content-4-einrichten-der-instanzen-in-ip-symcon)
-5. [Statusvariablen und Darstellungen](#user-content-5-statusvariablen-und-darstellungen)
-6. [Visualisierung](#user-content-6-visualisierung)
-7. [PHP-Befehlsreferenz](#user-content-7-php-befehlsreferenz)
-8. [Versionshistorie](#user-content-8-versionshistorie)
+4. [Einrichtung](#user-content-4-einrichtung)
+5. [Statusvariablen](#user-content-5-statusvariablen)
+6. [Darstellungen](#user-content-6-darstellungen)
+7. [Visualisierung](#user-content-7-visualisierung)
+8. [Befehlsreferenz](#user-content-8-befehlsreferenz)
+9. [Versionshistorie](#user-content-9-versionshistorie)
 
 ### 1. Funktionsumfang
 
@@ -28,17 +30,17 @@ Darüber hinaus kann festgelegt werden, wie der Bildinhalt relativ zur Kachelgr�
 
 ### 2. Voraussetzungen
 
-* IP-Symcon ab Version 8.1
+* Symcon ab Version 8.1
 
 ### 3. Installation
 
-* Über den Module Store das 'Bildbetrachter'-Modul installieren.
-* Alternativ über das Module Control folgende URL hinzufügen  
+* Über den Modul Store das Modul _Bildbetrachter_ installieren.
+* Alternativ über das Modul Control folgende URL hinzufügen.  
 `https://github.com/Wilkware/ImageViewer` oder `git://github.com/Wilkware/ImageViewer.git`
 
-### 4. Einrichten der Instanzen in IP-Symcon
+### 4. Einrichtung
 
-* Unter "Instanz hinzufügen" ist das _'Bildbetrachter'_-Modul unter dem Hersteller _'Geräte'_ aufgeführt.
+* Unter 'Instanz hinzufügen' ist das _Bildbetrachter_-Modul unter dem Hersteller '(Geräte)' aufgeführt.
 Weitere Informationen zum Hinzufügen von Instanzen in der [Dokumentation der Instanzen](https://www.symcon.de/service/dokumentation/konzepte/instanzen/#Instanz_hinzufügen)
 
 __Konfigurationsseite__:
@@ -51,14 +53,14 @@ Name                              | Beschreibung
 --------------------------------- | -------------------------------------------
 URL der Bild-Ressource            | Quell-URL des darzustellenden Bildes/MJPG
 
-> ✨ Visualisation ...
+> ✨ Visualisierung ...
 
 Name                              | Beschreibung
 --------------------------------- | -------------------------------------------
 Hintergrundfarbe                  | Hintergrundfarbe der Kachel
 Bildanpassung                     | Ausfüllen (cover), Einpassen (contain) oder Strecken (fill)
 
-> ⚙️ Erweiterte Einstellungen  ...
+> ⚙️ Erweiterte Einstellungen ...
 
 Name                              | Beschreibung
 --------------------------------- | -------------------------------------------
@@ -67,16 +69,20 @@ Anzeigen eines Buttons zum Erstellen eines neuen Snapshots! | Rechts unten wird 
 Skript                            | Script, welches den Snapshot erzeugt
 Variable                          | Variable, dessen Action den Snapshot auslöst
 
-### 5. Statusvariablen und Darstellungen
+### 5. Statusvariablen
 
-Es werden keine zusätzlichen Statusvariablen und Darstellungen/Profile benötigt.
+Es werden keine Statusvariablen angelegt.
 
-### 6. Visualisierung
+### 6. Darstellungen
+
+Es werden keine Darstellungen oder Profile benötigt.
+
+### 7. Visualisierung
 
 Das Modul kann direkt als Link in die TileVisu eingehangen werden.  
 Als Kachel wird ein vollflächiges Bild bzw. Motion-Stream dargestellt.
 
-### 7. PHP-Befehlsreferenz
+### 8. Befehlsreferenz
 
 ```php
 WWXIV_SetImageUrl(int $InstanzID, string $source);
@@ -88,10 +94,10 @@ Im Erfolgsfall wird die Url der bis dahin angezeigten Bildes zurückggeben.
 
 __Beispiel__:
 ```php
-WWXIV_SetImageUrl(12345, 'https://wilkware.de/wp-content/uploads/2025/02/sommer-smart-home.jpeg');
+WWXIV_SetImageUrl(12345, 'https://wilkware.de/images/sommer-smart-home.jpeg');
 ```
 
-### 8. Versionshistorie
+### 9. Versionshistorie
 
 v2.0.20260713
 
@@ -117,7 +123,7 @@ v1.0.20250729
 
 ## Entwickler
 
-Seit nunmehr über 10 Jahren fasziniert mich das Thema Haussteuerung. In den letzten Jahren betätige ich mich auch intensiv in der IP-Symcon Community und steuere dort verschiedenste Skript und Module bei. Ihr findet mich dort unter dem Namen @pitti ;-)
+Seit nunmehr über 10 Jahren fasziniert mich das Thema Haussteuerung. In den letzten Jahren betätige ich mich auch intensiv in der Symcon Community und steuere dort verschiedenste Skript und Module bei. Ihr findet mich dort unter dem Namen @pitti ;-)
 
 [![GitHub](https://img.shields.io/badge/GitHub-@wilkware-181717.svg?style=for-the-badge&logo=github)](https://wilkware.github.io/)
 
